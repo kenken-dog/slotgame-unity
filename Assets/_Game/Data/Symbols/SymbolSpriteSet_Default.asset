@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15cd914a2bd3f4e1cb6703ae7efebc38, type: 3}
+  m_Name: SymbolSpriteSet_Default
+  m_EditorClassIdentifier: Assembly-CSharp::SymbolSpriteSet
+  entries:
+  - id: 0
+    sprite: {fileID: 21300000, guid: 81909e9b4271d41118affbefe3b22b58, type: 3}
+  - id: 1
+    sprite: {fileID: 352770741746986752, guid: 16ddbad2d8de34470b20200cc3a2575e, type: 3}
+  - id: 2
+    sprite: {fileID: 21300000, guid: f6d6dd0c35e2f46088b1d5205aa91c3e, type: 3}
+  - id: 3
+    sprite: {fileID: 21300000, guid: 6baab6b08e57a4400bca5ce82c4cafea, type: 3}
+  - id: 4
+    sprite: {fileID: 21300000, guid: 8d6f86e1c5f3843d081abcc5d9045926, type: 3}
+  - id: 5
+    sprite: {fileID: 21300000, guid: 3b9b760403fb14f22b015c51a76a0f82, type: 3}
+  - id: 6
+    sprite: {fileID: 21300000, guid: a7e88d1087ee74375b518982cb65f1a6, type: 3}
+  - id: 7
+    sprite: {fileID: 21300000, guid: 2d34351a6c6524ee48f3c8c057521f47, type: 3}
+  - id: 8
+    sprite: {fileID: 21300000, guid: 998bdc7c5cb754520802bb6d42827ecc, type: 3}
+  - id: 9
+    sprite: {fileID: 21300000, guid: 4fd3213e3036e4a9db181be9e8291798, type: 3}
