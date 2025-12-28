@@ -1,0 +1,4 @@
+﻿id,assetName,displayName,description,rarity,dropWeight,iconPath,effectType,targetSymbol,multiplier
+LuckyCharm,Lucky Charm,ラッキーチャーム,クローバーの出現率を上昇する,Common,,,MultiplySymbolWeight,Clover,2
+KeyMagnet,Tresure Map,宝の地図,鍵の出現率を上昇する,Rare,0,,MultiplySymbolWeight,Key,2
+DoubleSeven,Double Seven,ロト７,ジャックポット７の出現率を上昇する,Epic,0,,MultiplySymbolWeight,Seven,2

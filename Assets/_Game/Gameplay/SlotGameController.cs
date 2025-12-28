@@ -48,6 +48,12 @@ public class SlotGameController : MonoBehaviour
     public Button autoSpinButton;
     public Text autoSpinButtonText;
 
+    [Header("Start Item Choice")]
+    public StartItemChoicePopup startItemChoicePopup;
+    public bool requireStartItemChoice = true;
+
+    private bool startChoiceDone = false;
+
     private bool isAutoSpin = false;
 
     private OutcomeGenerator outcomeGenerator;
@@ -184,6 +190,8 @@ public class SlotGameController : MonoBehaviour
         {
             spinButton.onClick.AddListener(() =>
             {
+                if (!startChoiceDone) return; 
+
                 if (!isSpinning && !isGameCleared)
                 {
                     audioManager?.PlaySpinButton();
@@ -211,6 +219,17 @@ public class SlotGameController : MonoBehaviour
         {
             statusText.text = "";
         }
+
+        // ★ ゲーム開始時のアイテム選択
+        if (requireStartItemChoice)
+        {
+            BeginStartItemChoice();
+        }
+        else
+        {
+            startChoiceDone = true;
+        }
+
     }
 
     private IEnumerator SpinFlow()
@@ -374,4 +393,48 @@ public class SlotGameController : MonoBehaviour
         if (spinButton != null) spinButton.interactable = true;
         if (winPresentation != null) winPresentation.SetResultInstant("リセットしました。");
     }
+    private void BeginStartItemChoice()
+    {
+        startChoiceDone = false;
+
+        // スピンを封じる（オートも止める）
+        if (spinButton != null) spinButton.interactable = false;
+
+        // 候補生成
+        var defs = itemManager != null ? itemManager.GetStartChoiceCandidates(3) : null;
+
+        // 候補が無い/足りない場合のフォールバック
+        if (defs == null || defs.Count == 0)
+        {
+            startChoiceDone = true;
+            if (spinButton != null) spinButton.interactable = true;
+            return;
+        }
+
+        if (startItemChoicePopup != null)
+        {
+            startItemChoicePopup.Show(defs, (picked) =>
+            {
+                if (picked != null && itemManager != null)
+                {
+                    itemManager.TryGiveItem(picked.id);
+
+                    // 取得通知（任意）
+                    if (itemPopupPresenter != null)
+                        itemPopupPresenter.Show($"START ITEM!\n{picked.displayName}");
+                }
+
+                startChoiceDone = true;
+                if (!isGameCleared && spinButton != null) spinButton.interactable = true;
+            });
+        }
+        else
+        {
+            // UIが無い場合：先頭を自動取得（保険）
+            itemManager.TryGiveItem(defs[0].id);
+            startChoiceDone = true;
+            if (!isGameCleared && spinButton != null) spinButton.interactable = true;
+        }
+    }
+
 }

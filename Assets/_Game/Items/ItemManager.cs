@@ -169,4 +169,56 @@ public class ItemManager : MonoBehaviour
             if (def != null) yield return def;
         }
     }
+
+    /// <summary>
+    /// Common/Rare の未所持アイテムからランダムに選択肢を作る（最大count個）。
+    /// </summary>
+    public List<ItemDefinition> GetStartChoiceCandidates(int count = 3)
+    {
+        var pool = new List<ItemDefinition>();
+
+        foreach (var def in allItems)
+        {
+            if (def == null) continue;
+            if (_inventory.Has(def.id)) continue;
+
+            // Common / Rare のみ
+            if (def.rarity != ItemRarity.Common && def.rarity != ItemRarity.Rare) continue;
+
+            pool.Add(def);
+        }
+
+        // 候補が少ない場合もあるので、pool.Count を上限にする
+        Shuffle(pool);
+
+        int take = Mathf.Min(count, pool.Count);
+        return pool.GetRange(0, take);
+    }
+
+    /// <summary>
+    /// 指定アイテムを取得（未所持なら追加して効果も反映）
+    /// </summary>
+    public bool TryGiveItem(ItemId id)
+    {
+        var def = GetDefinition(id);
+        if (def == null) return false;
+        if (_inventory.Has(id)) return false;
+
+        if (!_inventory.TryAdd(id)) return false;
+
+        var effect = def.CreateEffect();
+        if (effect != null) _effects.Add(effect);
+
+        return true;
+    }
+
+    private static void Shuffle<T>(List<T> list)
+    {
+        for (int i = list.Count - 1; i > 0; i--)
+        {
+            int j = Random.Range(0, i + 1);
+            (list[i], list[j]) = (list[j], list[i]);
+        }
+    }
+
 }

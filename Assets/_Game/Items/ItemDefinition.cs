@@ -1,12 +1,22 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 
 public enum ItemId
 {
+
     // 例：後で増やす
     LuckyCharm,
     DoubleSeven,
     KeyMagnet,
+    AceUp,
+    DiaUp,
+    FruitUp,
+    BellUp,
+    BarUp,
+    BagUp,
+    MelonUp,
+    SevenUp,
+
 }
 
 public abstract class ItemDefinition : ScriptableObject
